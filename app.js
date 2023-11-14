@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+const cors = require('cors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,6 +9,13 @@ var app = express();
 // Connect to the server: MongoDB server
 const db = require('./config/db');
 db();
+
+// Cors
+app.use(
+    cors({
+        origin: '*',
+    }),
+);
 
 var indexRouter = require('./routes/index');
 

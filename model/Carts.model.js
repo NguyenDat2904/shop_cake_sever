@@ -8,7 +8,7 @@ const Cart = new Schema(
         },
         product: [
             {
-                ...{
+                id: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'products',
                 },

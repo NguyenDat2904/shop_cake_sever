@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Order = new Schema(
     {
-        nameBuy: { type: String, required: true },
-        email: { type: String, required: true },
-        phoneBuy: { type: String, required: true },
-        nameReceive: { type: String, required: true },
+        nameBuy: { type: String },
+        email: { type: String },
+        phoneBuy: { type: String },
+        nameReceive: { type: String },
         phoneReceive: { type: String },
         province: { type: String },
-        district: { type: Number },
+        district: { type: String },
         ward: { type: String },
         address: { type: String },
         product: [
             {
-                ...{
+                id: {
                     type: mongoose.Schema.Types.ObjectId,
                     ref: 'products',
                 },

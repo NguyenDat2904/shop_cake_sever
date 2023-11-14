@@ -9,6 +9,7 @@ var app = express();
 // Connect to the server: MongoDB server
 const db = require('./config/db');
 db();
+var indexRouter = require('./routes/index');
 
 // Cors
 app.use(
@@ -16,8 +17,6 @@ app.use(
         origin: '*',
     }),
 );
-
-var indexRouter = require('./routes/index');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

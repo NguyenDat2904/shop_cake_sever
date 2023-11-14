@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const AuthController = require('../controller/auth.ctl');
+const AuthController = require('../controller/Auth.ctl');
 
 // 1. Method :  POST /auth/verify
 //    Desc   : Verify Owner Email when Register

@@ -12,7 +12,7 @@ router.get('/', checkRefreshToken, checkAccessToken, CartController.showAll);
 // 2. Method : POST /cart/
 //    Desc   : Create a new cart
 //    Protect: Login, User
-router.post('/post', checkRefreshToken, checkAccessToken, CartController.createCart);
+router.post('/post/:_id', checkRefreshToken, checkAccessToken, CartController.createCart);
 
 // 3. Method : PUT /cart/
 //    Desc   : Change one or more cart

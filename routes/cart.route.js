@@ -22,7 +22,7 @@ router.put('/put/:_id', checkRefreshToken, checkAccessToken, CartController.chan
 // 4. Method : DELETE /cart/delete/:_id
 //    Desc   : Delete a cart
 //    Protect: Login, Admin
-router.delete('/delete/:_id', checkRefreshToken, checkAccessToken, CartController.deleteCart);
+router.post('/delete/:_id', checkRefreshToken, checkAccessToken, CartController.deleteCart);
 
 // 5. Method : GET /cart/:_id
 //    Desc   : Get one cart from the database

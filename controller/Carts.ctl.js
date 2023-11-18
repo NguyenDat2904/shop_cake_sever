@@ -4,7 +4,7 @@ const ProductModel = require('../model/Products.model');
 class Cart {
     async showAll(req, res) {
         try {
-            const id = req.body._id;
+            const id = req.params._id;
             const page = parseInt(req.query.page) || 1;
             const limit = parseInt(req.query.limit) || 10;
 
@@ -81,11 +81,21 @@ class Cart {
     async deleteCart(req, res) {
         try {
             const { _id } = req.params;
+            const idProduct = req.body.id;
             // Check Cart
-            const cart = await CartModel.findById({ _id: _id });
+            const cart = await CartModel.findOne({ user: _id })
+                .populate({ path: 'user', select: '-password -refreshToken -code_security' })
+                .populate({ path: 'product.id', select: '-id' });
             if (!cart) return res.status(404).json({ msg: 'Cart not found' });
-            await CartModel.findOneAndDelete({ _id });
-            res.status(200).json({ msg: 'Cart removed successfully' });
+            const updatedProducts = cart.product.filter((product) => product.id._id.toString() !== idProduct);
+            if (updatedProducts.length > 0) {
+                cart.product = updatedProducts;
+                await cart.save();
+                return res.status(200).json({ msg: 'Cart removed one item successfully' });
+            } else {
+                await CartModel.findOneAndDelete({ user: _id });
+                return res.status(200).json({ msg: 'Cart removed successfully' });
+            }
         } catch (error) {
             return res.status(400).json({ msg: 'Error Cart Delete', error: error });
         }

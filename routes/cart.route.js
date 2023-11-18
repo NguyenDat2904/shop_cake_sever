@@ -7,7 +7,7 @@ const checkRefreshToken = require('../middleware/refreshToken.mdw');
 // 1. Method : GET /cart/
 //    Desc   : Get all data from the database
 //    Protect: Login
-router.get('/', checkRefreshToken, checkAccessToken, CartController.showAll);
+router.get('/user/:_id', checkRefreshToken, checkAccessToken, CartController.showAll);
 
 // 2. Method : POST /cart/
 //    Desc   : Create a new cart
@@ -22,7 +22,7 @@ router.put('/put/:_id', checkRefreshToken, checkAccessToken, CartController.chan
 // 4. Method : DELETE /cart/delete/:_id
 //    Desc   : Delete a cart
 //    Protect: Login, Admin
-router.delete('/delete/:_id', checkRefreshToken, checkAccessToken, CartController.deleteCart);
+router.delete('/delete/:_id',  CartController.deleteCart);
 
 // 5. Method : GET /cart/:_id
 //    Desc   : Get one cart from the database

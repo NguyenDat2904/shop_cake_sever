@@ -18,7 +18,7 @@ class UserController {
             const users = await UserModel.find({ role: 'regular', ...phoneFiler })
                 .skip((page - 1) * limit)
                 .limit(limit)
-                .select('-password -refreshToken -code_security -username -role');
+                .select('-password -refreshToken -code_security -role');
             if (!users) return res.status(400).json({ msg: 'User not found' });
             res.status(200).json(users, page, totalUsers, totalPages);
         } catch (error) {
@@ -62,7 +62,7 @@ class UserController {
     async detail(req, res) {
         try {
             const { _id } = req.params;
-            const user = await UserModel.findById({ _id }).select('-password -refreshToken -code_security -username');
+            const user = await UserModel.findById({ _id }).select('-password -refreshToken -code_security');
             if (!user) return res.status(400).json({ msg: 'User not found' });
             res.status(200).json(user);
         } catch (error) {

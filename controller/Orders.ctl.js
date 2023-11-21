@@ -107,7 +107,7 @@ class OrderController {
     async detailUser(req, res) {
         try {
             const _id = req.params._id;
-            const order = await OrderModel.findOne({ userID: _id })
+            const order = await OrderModel.find({ userID: _id })
                 .populate({
                     path: 'userID',
                     select: '-password -refreshToken -code_security -role',

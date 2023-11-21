@@ -32,7 +32,6 @@ class Cart {
             const cart = await CartModel.findOne({ user: _id })
                 .populate({ path: 'user', select: '-password -refreshToken -code_security' })
                 .populate({ path: 'product.id', select: '-id' });
-            console.log(cart === null);
             if (cart === null) {
                 const newCart = new CartModel({
                     user: userID,

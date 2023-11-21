@@ -9,8 +9,9 @@ class OrderController {
             const totalPages = Math.ceil(totalOrder / limit);
 
             const orders = await OrderModel.find()
-                .skip((page - 1) * limit)
+                .populate({ path: 'userID', select: '-password -refreshToken -code_security' })
                 .populate('product.id')
+                .skip((page - 1) * limit)
                 .limit(limit);
             if (!orders) {
                 return res.status(400).json({ msg: 'Orders not found' });
@@ -24,6 +25,7 @@ class OrderController {
     async createOder(req, res) {
         try {
             const {
+                userID,
                 nameBuy,
                 email,
                 phoneBuy,
@@ -40,6 +42,7 @@ class OrderController {
             } = req.body;
 
             const order = new OrderModel({
+                userID,
                 nameBuy,
                 email,
                 phoneBuy,
@@ -98,6 +101,22 @@ class OrderController {
             res.status(200).json({ msg: 'Order removed successfully' });
         } catch (error) {
             return res.status(400).json({ msg: 'Error Order Delete', error: error });
+        }
+    }
+
+    async detailUser(req, res) {
+        try {
+            const _id = req.params._id;
+            const order = await OrderModel.findOne({ userID: _id })
+                .populate({
+                    path: 'userID',
+                    select: '-password -refreshToken -code_security -role',
+                })
+                .populate('product.id');
+            console.log(order);
+            res.status(200).json(order);
+        } catch (error) {
+            return res.status(400).json({ msg: 'Error get order of user', error: error });
         }
     }
 }

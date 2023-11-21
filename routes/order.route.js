@@ -23,11 +23,16 @@ router.put('/put/:_id', checkRefreshToken, checkAccessToken, OrderController.cha
 // 4. Method : DELETE /order/delete/:_id
 //    Desc   : Delete a order
 //    Protect: Login, Admin
-router.delete('/delete/:_id', OrderController.deleteOrder);
+router.delete('/delete/:_id', checkRefreshToken, checkAccessToken, OrderController.deleteOrder);
 
 // 5. Method : GET /order/:_id
 //    Desc   : Get one order from the database
 //    Protect: Login
 router.get('/:_id', checkRefreshToken, checkAccessToken, OrderController.detail);
+
+// 5. Method : GET /order/user/:_id
+//    Desc   : Get one order from the database
+//    Protect: Login
+router.get('/user/:_id', checkRefreshToken, checkAccessToken, OrderController.detailUser);
 
 module.exports = router;

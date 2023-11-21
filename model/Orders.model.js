@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Order = new Schema(
     {
+        userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'users',
+        },
         nameBuy: { type: String },
         email: { type: String },
         phoneBuy: { type: String },

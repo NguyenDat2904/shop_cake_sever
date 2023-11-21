@@ -7,6 +7,7 @@ class Payment {
     async pay(req, res) {
         try {
             const {
+                userID,
                 nameBuy,
                 email,
                 phoneBuy,
@@ -23,6 +24,7 @@ class Payment {
             const total = await convertVndToUsd(formattedTotal);
 
             const order = new OrderModel({
+                userID,
                 nameBuy,
                 email,
                 phoneBuy,
